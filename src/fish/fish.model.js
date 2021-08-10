@@ -18,6 +18,7 @@ const fishSchema = new mongoose.Schema({
   habitat: {
     type: String,
     required: true,
+    default: "Info incoming"
   },
   description: {
     type: String,
@@ -26,6 +27,7 @@ const fishSchema = new mongoose.Schema({
   compatibility: {
     type: String,
     required: true,
+    default: "Info incoming"
   },
   quantity: {
     type: Number,

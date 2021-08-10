@@ -5,15 +5,18 @@ exports.createUser = async (req, res) => {
     const user = new User(req.body);
     const savedUser = await user.save();
     const token = await user.generateAuthToken(user._id);
-    res
-      .status(200)
-      .send({
-        user: savedUser,
-        token: token,
-        message: "User created in database",
-      });
+    res.status(200).send({
+      user: savedUser,
+      token: token,
+      message: "User created in database",
+    });
   } catch (error) {
-    res.status(500).send(error);
+    if (error.code === 11000) {
+      res.status(500).send({ message: "Username and/or email already in use" });
+    } else {
+      console.log(error);
+      res.status(500).send({ message: "Unsuccessful" });
+    }
   }
 };
 
@@ -27,7 +30,7 @@ exports.findUser = async (req, res) => {
       .status(200)
       .send({ user: targetUser, token: token, message: "User found" });
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send({message: "User not found"});
   }
 };
 
@@ -41,7 +44,7 @@ exports.deleteUser = async (req, res) => {
     );
     res.status(200).send({ user: removeUser, message: "User deleted" });
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send({ message: "Unsuccessful" });
   }
 };
 
@@ -57,7 +60,7 @@ exports.updateUser = async (req, res) => {
     );
     res.status(200).send({ user: modifyUser, message: "User modified" });
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send({ message: "Unsuccessful" });
   }
 };
 
