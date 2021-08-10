@@ -16,11 +16,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  firstname: {
+  name: {
     type: String,
     required: true,
   },
-  secondname: {
+  surname: {
     type: String,
     required: true,
   },

@@ -50,19 +50,62 @@ exports.deleteUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const user = req.body.username;
-    const pass = req.body.password;
-    const email = req.body.email;
-    const filter = req.body.currentUser;
-    const modifyUser = await User.updateOne(
-      { username: filter },
-      { username: user, password: pass, email: email }
-    );
+     const filter = req.body.currentUser;
+    if (req.body.user) {
+      await User.findOneAndUpdate(
+        { name: filter },
+        { $set: { username: req.body.user } },
+        { upsert: true, new: true }
+      );
+    } else if (req.body.email) {
+      await User.findOneAndUpdate(
+        { name: filter },
+        { $set: { email: req.body.email } },
+        { upsert: true, new: true }
+      );
+    } else if (req.body.pass) {
+      await User.findOneAndUpdate(
+        { name: filter },
+        { $set: { password: req.body.pass } },
+        { upsert: true, new: true }
+      );
+    } else if (req.body.fname) {
+      await User.findOneAndUpdate(
+        { name: filter },
+        { $set: { name: req.body.fname } },
+        { upsert: true, new: true }
+      );
+    } else if (req.body.sname) {
+      await User.findOneAndUpdate(
+        { name: filter },
+        { $set: { surname: req.body.sname } },
+        { upsert: true, new: true }
+      );
+    } else if (req.body.street) {
+      await User.findOneAndUpdate(
+        { name: filter },
+        { $set: { street: req.body.street } },
+        { upsert: true, new: true }
+      );
+    } else if (req.body.city) {
+      await User.findOneAndUpdate(
+        { name: filter },
+        { $set: { city: req.body.city } },
+        { upsert: true, new: true }
+      );
+    } else if (req.body.pcode) {
+      await User.findOneAndUpdate(
+        { name: filter },
+        { $set: { postcode: req.body.pcode } },
+        { upsert: true, new: true }
+      );
+    }
     res.status(200).send({ user: modifyUser, message: "User modified" });
   } catch (error) {
     res.status(500).send({ message: "Unsuccessful" });
   }
 };
+
 
 exports.authUser = async (req, res) => {
   res.status(200).send(req.user);
