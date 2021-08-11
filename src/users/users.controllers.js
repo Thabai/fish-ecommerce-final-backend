@@ -53,49 +53,49 @@ exports.updateUser = async (req, res) => {
      const filter = req.body.currentUser;
     if (req.body.user) {
       await User.findOneAndUpdate(
-        { name: filter },
+        { username: filter },
         { $set: { username: req.body.user } },
         { upsert: true, new: true }
       );
     } else if (req.body.email) {
       await User.findOneAndUpdate(
-        { name: filter },
+        { username: filter },
         { $set: { email: req.body.email } },
         { upsert: true, new: true }
       );
     } else if (req.body.pass) {
       await User.findOneAndUpdate(
-        { name: filter },
+        { username: filter },
         { $set: { password: req.body.pass } },
         { upsert: true, new: true }
       );
     } else if (req.body.fname) {
       await User.findOneAndUpdate(
-        { name: filter },
+        { username: filter },
         { $set: { name: req.body.fname } },
         { upsert: true, new: true }
       );
     } else if (req.body.sname) {
       await User.findOneAndUpdate(
-        { name: filter },
+        { username: filter },
         { $set: { surname: req.body.sname } },
         { upsert: true, new: true }
       );
     } else if (req.body.street) {
       await User.findOneAndUpdate(
-        { name: filter },
+        { username: filter },
         { $set: { street: req.body.street } },
         { upsert: true, new: true }
       );
     } else if (req.body.city) {
       await User.findOneAndUpdate(
-        { name: filter },
+        { username: filter },
         { $set: { city: req.body.city } },
         { upsert: true, new: true }
       );
     } else if (req.body.pcode) {
       await User.findOneAndUpdate(
-        { name: filter },
+        { username: filter },
         { $set: { postcode: req.body.pcode } },
         { upsert: true, new: true }
       );
