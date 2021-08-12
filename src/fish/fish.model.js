@@ -18,17 +18,38 @@ const fishSchema = new mongoose.Schema({
   habitat: {
     type: String,
     required: true,
-    default: "Info incoming"
+    default: "Info incoming",
   },
   description: {
     type: String,
     required: true,
   },
   compatibility: {
-    type: String,
-    required: true,
-    default: "Info incoming"
-  },
+        temperature: {
+        type: String,
+        required: true,
+        default: "Info incoming",
+      },
+        temperament: {
+        type: String,
+        required: true,
+        default: "Info incoming",
+    },
+    foodsource: {
+      type: String,
+        required: true,
+        default: "Info incoming",
+      },
+    social: {
+        type: String,
+        required: true,
+        default: "Info incoming",
+    },
+    breeding: {
+        type: String,
+        required: true,
+        default: "Info incoming",
+  }},
   quantity: {
     type: Number,
     required: true,

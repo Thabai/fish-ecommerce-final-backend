@@ -51,13 +51,7 @@ exports.deleteUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
      const filter = req.body.currentUser;
-    if (req.body.user) {
-      await User.findOneAndUpdate(
-        { username: filter },
-        { $set: { username: req.body.user } },
-        { upsert: true, new: true }
-      );
-    } else if (req.body.email) {
+     if (req.body.email) {
       await User.findOneAndUpdate(
         { username: filter },
         { $set: { email: req.body.email } },
@@ -69,16 +63,16 @@ exports.updateUser = async (req, res) => {
         { $set: { password: req.body.pass } },
         { upsert: true, new: true }
       );
-    } else if (req.body.fname) {
+    } else if (req.body.name) {
       await User.findOneAndUpdate(
         { username: filter },
-        { $set: { name: req.body.fname } },
+        { $set: { name: req.body.name } },
         { upsert: true, new: true }
       );
-    } else if (req.body.sname) {
+    } else if (req.body.surname) {
       await User.findOneAndUpdate(
         { username: filter },
-        { $set: { surname: req.body.sname } },
+        { $set: { surname: req.body.surname } },
         { upsert: true, new: true }
       );
     } else if (req.body.street) {
@@ -93,14 +87,14 @@ exports.updateUser = async (req, res) => {
         { $set: { city: req.body.city } },
         { upsert: true, new: true }
       );
-    } else if (req.body.pcode) {
+    } else if (req.body.postcode) {
       await User.findOneAndUpdate(
         { username: filter },
-        { $set: { postcode: req.body.pcode } },
+        { $set: { postcode: req.body.postcode } },
         { upsert: true, new: true }
       );
     }
-    res.status(200).send({ user: modifyUser, message: "User modified" });
+    res.status(200).send({ username: filter, message: "User modified" });
   } catch (error) {
     res.status(500).send({ message: "Unsuccessful" });
   }
