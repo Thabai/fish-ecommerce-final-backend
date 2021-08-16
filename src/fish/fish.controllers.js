@@ -29,11 +29,8 @@ exports.findFish = async (req, res) => {
 };
 
 exports.findAllFish = async (req, res) => {
-  console.log("here first")
   try {
-    console.log("here")
     const list = await Fish.find({});
-    console.log(list)
     res.status(200).send(list);
   } catch (error) {
     res.status(500).send({ message: "Loading all fish unsuccessful" });
