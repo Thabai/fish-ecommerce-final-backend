@@ -34,6 +34,19 @@ exports.findUser = async (req, res) => {
   }
 };
 
+// //finduser after login
+// exports.find = async (req, res) => {
+//   try {
+//     const user = req.params.username;
+//     const targetUser = await User.findOne({ username: user});
+//     res
+//       .status(200)
+//       .send({ user: targetUser, message: "User found" });
+//   } catch (error) {
+//     res.status(500).send({ message: "User not found" });
+//   }
+// };
+
 exports.deleteUser = async (req, res) => {
   try {
     const user = req.params.username;
@@ -51,54 +64,67 @@ exports.deleteUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
      const filter = req.body.currentUser;
-     if (req.body.email) {
-      await User.findOneAndUpdate(
+     const updateUser = await User.findOneAndUpdate(
         { username: filter },
-        { $set: { email: req.body.email } },
-        { upsert: true, new: true }
+        { email: req.body.email, password: req.body.password, name: req.body.name, surname: req.body.surname, street: req.body.street, city: req.body.city, postcode: req.body.postcode },
       );
-    } else if (req.body.pass) {
-      await User.findOneAndUpdate(
-        { username: filter },
-        { $set: { password: req.body.pass } },
-        { upsert: true, new: true }
-      );
-    } else if (req.body.name) {
-      await User.findOneAndUpdate(
-        { username: filter },
-        { $set: { name: req.body.name } },
-        { upsert: true, new: true }
-      );
-    } else if (req.body.surname) {
-      await User.findOneAndUpdate(
-        { username: filter },
-        { $set: { surname: req.body.surname } },
-        { upsert: true, new: true }
-      );
-    } else if (req.body.street) {
-      await User.findOneAndUpdate(
-        { username: filter },
-        { $set: { street: req.body.street } },
-        { upsert: true, new: true }
-      );
-    } else if (req.body.city) {
-      await User.findOneAndUpdate(
-        { username: filter },
-        { $set: { city: req.body.city } },
-        { upsert: true, new: true }
-      );
-    } else if (req.body.postcode) {
-      await User.findOneAndUpdate(
-        { username: filter },
-        { $set: { postcode: req.body.postcode } },
-        { upsert: true, new: true }
-      );
-    }
-    res.status(200).send({ username: filter, message: "User modified" });
+    res.status(200).send({ user: updateUser, message: "User modified" });
   } catch (error) {
     res.status(500).send({ message: "Unsuccessful" });
   }
 };
+
+// exports.updateUser = async (req, res) => {
+//   try {
+//      const filter = req.body.currentUser;
+//      if (req.body.email) {
+//       await User.findOneAndUpdate(
+//         { username: filter },
+//         { $set: { email: req.body.email } },
+//         { upsert: true, new: true }
+//       );
+//     } else if (req.body.pass) {
+//       await User.findOneAndUpdate(
+//         { username: filter },
+//         { $set: { password: req.body.pass } },
+//         { upsert: true, new: true }
+//       );
+//     } else if (req.body.name) {
+//       await User.findOneAndUpdate(
+//         { username: filter },
+//         { $set: { name: req.body.name } },
+//         { upsert: true, new: true }
+//       );
+//     } else if (req.body.surname) {
+//       await User.findOneAndUpdate(
+//         { username: filter },
+//         { $set: { surname: req.body.surname } },
+//         { upsert: true, new: true }
+//       );
+//     } else if (req.body.street) {
+//       await User.findOneAndUpdate(
+//         { username: filter },
+//         { $set: { street: req.body.street } },
+//         { upsert: true, new: true }
+//       );
+//     } else if (req.body.city) {
+//       await User.findOneAndUpdate(
+//         { username: filter },
+//         { $set: { city: req.body.city } },
+//         { upsert: true, new: true }
+//       );
+//     } else if (req.body.postcode) {
+//       await User.findOneAndUpdate(
+//         { username: filter },
+//         { $set: { postcode: req.body.postcode } },
+//         { upsert: true, new: true }
+//       );
+//     }
+//     res.status(200).send({ username: filter, message: "User modified" });
+//   } catch (error) {
+//     res.status(500).send({ message: "Unsuccessful" });
+//   }
+// };
 
 
 exports.authUser = async (req, res) => {

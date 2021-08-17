@@ -12,6 +12,7 @@ const { auth } = require("../middleware");
 userRouter.post("/users", createUser);
 userRouter.get("/users", auth, authUser);
 userRouter.post("/users/:username", findUser);
+// userRouter.get("/users/:username", find);
 userRouter.delete("/users/:username", deleteUser);
 userRouter.put("/users", updateUser);
 
