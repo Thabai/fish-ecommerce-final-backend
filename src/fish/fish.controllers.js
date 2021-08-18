@@ -12,7 +12,7 @@ exports.addFish = async (req, res) => {
             res.status(500).send({message: "Species already in database"});
         } else {
             console.log(error)
-            res.status(500).send({message: "Unsuccessful"});
+            res.status(500).send(error);
         }
     }
 };
@@ -21,8 +21,11 @@ exports.findFish = async (req, res) => {
   try {
     const fish = req.params.name;
     const targetFish = await Fish.findOne({ name: fish });
-    
-    res.status(200).send({ fish: targetFish, message: "Fish name found" });
+    if (targetFish !== null) {
+      res.status(200).send({ fish: targetFish, message: "Fish name found" });
+    } else {
+          res.status(500).send({ message: "Fish not found" });
+    }
   } catch (error) {
     res.status(500).send({ message: "Fish not found" });
   }
