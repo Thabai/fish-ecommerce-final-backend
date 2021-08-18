@@ -54,42 +54,54 @@ exports.deleteFish = async (req, res) => {
 exports.updateFish = async (req, res) => {
   try {
     const name = req.body.name;
-    const targetFish = await Fish.findOne({ name: name });
-    if (req.body.img) {
-    await Fish.findOneAndUpdate(
-      { name: name },
-      { $set: { img: req.body.img } },
-      { upsert: true, new: true }
-    );
-    } else if (req.body.habitat){
-    await Fish.findOneAndUpdate(
-      { name: name},
-      { $set: { habitat: req.body.habitat } },
-      { upsert: true, new: true }
-    );
-    }else if (req.body.desc) {
-    await Fish.findOneAndUpdate({ name: name},
-      { $set: { description: req.body.desc } },
-      { upsert: true, new: true }
-    ); 
-    } else if (req.body.compat) {
-    await Fish.findOneAndUpdate({ name: name},
-      { $set: { compatibility: req.body.compat } },
-      { upsert: true, new: true }
-    );
-    } else if (req.body.price) {
-    await Fish.findOneAndUpdate(
-      { name: name },
-      { $set: { price: req.body.price } },
-      { upsert: true, new: true }
-    );
-    }
-    res.status(200).send({ name : targetFish, message: "Fish Info Updated" });
+    const targetFish = await Fish.findOneAndUpdate({ name: name }, {scientific:req.body.scientific, img: req.body.img, habitat: req.body.habitat, description: req.body.description, compatibility: req.body.compatibility, quantity: req.body.quantity, price: req.body.price}
+      );
+    res.status(200).send({ name: targetFish, message: "Fish Info Updated" });
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Unsuccessful" });
   }
 };
+
+// exports.updateFish = async (req, res) => {
+//   try {
+//     const name = req.body.name;
+//     const targetFish = await Fish.findOne({ name: name });
+//     if (req.body.img) {
+//     await Fish.findOneAndUpdate(
+//       { name: name },
+//       { $set: { img: req.body.img } },
+//       { upsert: true, new: true }
+//     );
+//     } else if (req.body.habitat){
+//     await Fish.findOneAndUpdate(
+//       { name: name},
+//       { $set: { habitat: req.body.habitat } },
+//       { upsert: true, new: true }
+//     );
+//     }else if (req.body.desc) {
+//     await Fish.findOneAndUpdate({ name: name},
+//       { $set: { description: req.body.desc } },
+//       { upsert: true, new: true }
+//     ); 
+//     } else if (req.body.compat) {
+//     await Fish.findOneAndUpdate({ name: name},
+//       { $set: { compatibility: req.body.compat } },
+//       { upsert: true, new: true }
+//     );
+//     } else if (req.body.price) {
+//     await Fish.findOneAndUpdate(
+//       { name: name },
+//       { $set: { price: req.body.price } },
+//       { upsert: true, new: true }
+//     );
+//     }
+//     res.status(200).send({ name : targetFish, message: "Fish Info Updated" });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send({ message: "Unsuccessful" });
+//   }
+// };
 
 exports.updateFishStock = async (req, res) => {
   try {
